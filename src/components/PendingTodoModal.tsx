@@ -40,8 +40,9 @@ export function PendingTodoModal({ open, initial, onClose, onSave, newId }: Prop
       setError('请填写岗位标题（建议：公司 + 岗位）')
       return
     }
+    const stableId = id.trim() || newId()
     const row: PendingTodo = {
-      id,
+      id: stableId,
       title: title.trim(),
       link: link.trim() || undefined,
       plannedApplyDate: plannedApplyDate || undefined,

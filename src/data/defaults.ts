@@ -1,4 +1,4 @@
-import type { AppliedJob } from '../types'
+import type { AppliedJob, PendingTodo } from '../types'
 
 /** 首次无 localStorage 时的内置示例（三条），字段与当前业务逻辑一致 */
 export const DEFAULT_APPLIED: AppliedJob[] = [
@@ -33,5 +33,15 @@ export const DEFAULT_APPLIED: AppliedJob[] = [
     todoName: '一面',
     todoDate: '2026-04-22',
     note: '4.22一面',
+  },
+]
+
+/** 首次无 localStorage 时右侧待申请示例 */
+export const DEFAULT_PENDING: PendingTodo[] = [
+  {
+    id: 'sample-pending-meituan-sde',
+    title: '美团-测试开发工程师',
+    link: 'https://zhaopin.meituan.com/web/position/detail?jobUnionId=4215376215&highlightType=campus',
+    plannedApplyDate: '2026-04-22',
   },
 ]

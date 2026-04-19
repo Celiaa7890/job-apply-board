@@ -60,23 +60,23 @@ export function useAppState() {
 
   const convertPendingToApplied = useCallback(
     (id: string) => {
-      let created: AppliedJob | null = null
-      setPending((prevP) => {
-        const item = prevP.find((p) => p.id === id)
-        if (!item) return prevP
-        const { companyName, roleName } = splitJobTitle(item.title)
-        created = {
-          id: newId(),
-          companyName: companyName || item.title,
-          roleName: roleName || '岗位',
-          progress: '已投递',
-          link: item.link,
-        }
-        return prevP.filter((p) => p.id !== id)
-      })
-      if (created) setApplied((prevA) => [...prevA, created!])
+      const item = pending.find((p) => p.id === id)
+      if (!item) return
+
+      const { companyName, roleName } = splitJobTitle(item.title)
+      const job: AppliedJob = {
+        id: newId(),
+        companyName: companyName || item.title,
+        roleName: roleName || '岗位',
+        progress: '已投递',
+        link: item.link,
+        appliedDate: item.plannedApplyDate,
+      }
+
+      setPending((prev) => prev.filter((p) => p.id !== id))
+      setApplied((prev) => [...prev, job])
     },
-    [newId],
+    [pending, newId],
   )
 
   const getApplied = useCallback((id: string) => applied.find((r) => r.id === id), [applied])

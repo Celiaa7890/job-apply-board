@@ -8,7 +8,7 @@ import { PendingTodoModal } from './components/PendingTodoModal'
 import { StatsCards } from './components/StatsCards'
 import { useAppState } from './hooks/useAppState'
 import type { AppliedJob, CalendarEvent, PendingTodo } from './types'
-import { sortAppliedJobsByAppliedDateDesc } from './utils/sortAppliedJobs'
+import { sortAppliedJobsByAppliedDateAsc } from './utils/sortAppliedJobs'
 
 type View = 'table' | 'calendar'
 
@@ -32,7 +32,7 @@ export default function App() {
     newId,
   } = useAppState()
 
-  const appliedSorted = useMemo(() => sortAppliedJobsByAppliedDateDesc(applied), [applied])
+  const appliedSorted = useMemo(() => sortAppliedJobsByAppliedDateAsc(applied), [applied])
 
   const [view, setView] = useState<View>('table')
 
