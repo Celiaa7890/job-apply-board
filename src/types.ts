@@ -14,6 +14,9 @@ export type Progress =
   | 'Offer'
   | '已结束'
 
+/** 进展为「面试中」时的具体轮次（不写入 Progress 枚举） */
+export type InterviewStage = '一面' | '二面' | '三面' | '群面' | 'HR面' | '其他'
+
 export type TodoName =
   | '在线笔试'
   | '一面'
@@ -32,6 +35,8 @@ export interface AppliedJob {
   deadlineDate?: string
   appliedDate?: string
   progress: Progress
+  /** 仅当 progress 为「面试中」时有意义 */
+  interviewStage?: InterviewStage
   link?: string
   note?: string
   todoName?: TodoName

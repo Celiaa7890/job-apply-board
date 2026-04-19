@@ -8,19 +8,29 @@ export interface PersistedState {
   pending: PendingTodo[]
 }
 
+function normalizeAppliedInterviewStage(rows: AppliedJob[]): AppliedJob[] {
+  return rows.map((r) => {
+    if (r.progress === '面试中' && !r.interviewStage) {
+      return { ...r, interviewStage: '一面' }
+    }
+    return r
+  })
+}
+
 export function loadPersisted(): PersistedState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw === null) {
-      return { applied: [...DEFAULT_APPLIED], pending: [] }
+      return { applied: normalizeAppliedInterviewStage([...DEFAULT_APPLIED]), pending: [] }
     }
     const parsed = JSON.parse(raw) as Partial<PersistedState>
+    const appliedRaw = Array.isArray(parsed.applied) ? parsed.applied : [...DEFAULT_APPLIED]
     return {
-      applied: Array.isArray(parsed.applied) ? parsed.applied : [...DEFAULT_APPLIED],
+      applied: normalizeAppliedInterviewStage(appliedRaw as AppliedJob[]),
       pending: Array.isArray(parsed.pending) ? parsed.pending : [],
     }
   } catch {
-    return { applied: [...DEFAULT_APPLIED], pending: [] }
+    return { applied: normalizeAppliedInterviewStage([...DEFAULT_APPLIED]), pending: [] }
   }
 }
 

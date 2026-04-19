@@ -1,4 +1,4 @@
-import type { Industry, Progress, TodoName } from './types'
+import type { AppliedJob, Industry, InterviewStage, Progress, TodoName } from './types'
 
 export const INDUSTRIES: Industry[] = [
   '互联网',
@@ -16,6 +16,15 @@ export const PROGRESS_OPTIONS: Progress[] = [
   '面试中',
   'Offer',
   '已结束',
+]
+
+export const INTERVIEW_STAGE_OPTIONS: InterviewStage[] = [
+  '一面',
+  '二面',
+  '三面',
+  '群面',
+  'HR面',
+  '其他',
 ]
 
 export const TODO_NAME_OPTIONS: TodoName[] = [
@@ -37,3 +46,9 @@ export const PROGRESS_TAG_CLASS: Record<Progress, string> = {
 }
 
 export const INDUSTRY_TAG_CLASS = 'tag tag--blue'
+
+/** 表格「进展」列展示文案：面试中且已选轮次时显示轮次 */
+export function getAppliedProgressDisplay(job: AppliedJob): string {
+  if (job.progress === '面试中' && job.interviewStage) return job.interviewStage
+  return job.progress
+}

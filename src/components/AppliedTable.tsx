@@ -1,4 +1,4 @@
-import { INDUSTRY_TAG_CLASS, PROGRESS_TAG_CLASS } from '../constants'
+import { getAppliedProgressDisplay, INDUSTRY_TAG_CLASS, PROGRESS_TAG_CLASS } from '../constants'
 import type { AppliedJob } from '../types'
 
 type Props = {
@@ -57,7 +57,9 @@ export function AppliedTable({ rows, onAdd, onRowOpen, onEdit, onDelete }: Props
                   <td className="cell-muted">{r.deadlineDate ?? '—'}</td>
                   <td className="cell-muted">{r.appliedDate ?? '—'}</td>
                   <td>
-                    <span className={PROGRESS_TAG_CLASS[r.progress]}>{r.progress}</span>
+                    <span className={PROGRESS_TAG_CLASS[r.progress]}>
+                      {getAppliedProgressDisplay(r)}
+                    </span>
                   </td>
                   <td>
                     {r.link ? (
