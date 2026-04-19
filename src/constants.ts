@@ -31,6 +31,7 @@ export const TODO_NAME_OPTIONS: TodoName[] = [
   '在线笔试',
   '一面',
   '二面',
+  '三面',
   '群面',
   'HR面',
   '回复 Offer',

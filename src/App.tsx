@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { AppliedJobModal } from './components/AppliedJobModal'
 import { AppliedTable } from './components/AppliedTable'
 import { CalendarView } from './components/CalendarView'
@@ -8,6 +8,7 @@ import { PendingTodoModal } from './components/PendingTodoModal'
 import { StatsCards } from './components/StatsCards'
 import { useAppState } from './hooks/useAppState'
 import type { AppliedJob, CalendarEvent, PendingTodo } from './types'
+import { sortAppliedJobsByAppliedDateDesc } from './utils/sortAppliedJobs'
 
 type View = 'table' | 'calendar'
 
@@ -30,6 +31,8 @@ export default function App() {
     getPending,
     newId,
   } = useAppState()
+
+  const appliedSorted = useMemo(() => sortAppliedJobsByAppliedDateDesc(applied), [applied])
 
   const [view, setView] = useState<View>('table')
 
@@ -117,7 +120,7 @@ export default function App() {
           <div className="split">
             <div className="split__main">
               <AppliedTable
-                rows={applied}
+                rows={appliedSorted}
                 onAdd={openAddApplied}
                 onRowOpen={openEditApplied}
                 onEdit={openEditApplied}
